@@ -42,7 +42,7 @@ public class JCaseChanger implements ClipboardOwner {
 	/**
 	 * The system clipboard
 	 */
-	Clipboard clipboard;
+	private Clipboard clipboard;
 	
 	
 	/**
@@ -133,7 +133,7 @@ public class JCaseChanger implements ClipboardOwner {
 	}
 
 	/**
-	 * No functionality. This is only required because this class implements 
+	 * No functionality. This is only present because this class implements 
 	 * ClipboardOwner
 	 */
 	@Override
