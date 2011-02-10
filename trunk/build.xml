@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2011 Paul Walker <walker.paul@gmail.com>
+  
+  This file is part of JCaseChanger.
+  
+  JCaseChanger is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  JCaseChanger is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public License
+  along with JCaseChanger.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!--
+   Author: Paul Walker
+   Version: $Revision$
+-->
+
+<project default="dist" name="JCaseChanger">
+	<description>"Change Text Case"</description>
+
+	<target name="init">
+		<!-- Use this file if you want to overwrite any of the default properties locally-->
+		<property file="build.properties"/> 
+		
+		<property name="srcDir" location="src" />
+		<property name="buildDir" location="bin" />
+		<property name="distDir" location="dist" />
+		<property name="apiDir" location="doc\api" />
+		<property name="encoding" value="UTF8" />
+		<property name="compilerargs" value="-Xlint" />
+		<property name="mainClass" value="net.sourceforge.jcasechanger.JCaseChanger" />
+	</target>
+	
+	<target name="clean" depends="init">
+		<delete dir="${buildDir}" />
+		<delete dir="${distDir}" />
+		<delete dir="${apiDir}" />
+		
+		<mkdir dir="${buildDir}" />
+		<mkdir dir="${distDir}" />
+		<mkdir dir="${apiDir}" />
+	</target>
+
+	<target name="compile" depends="clean">
+		<javac srcdir="${srcDir}" 
+			destdir="${buildDir}" 
+			encoding="${encoding}"
+			debug="true" debuglevel="lines, vars, and source">
+			<compilerarg value="${compilerargs}" />
+		</javac>
+	</target>
+
+		
+	<target name="javadoc" depends="compile">
+		<javadoc access="package" 
+			author="true" 
+			classpath="." 
+			destdir="${apiDir}" 
+			doctitle="JCaseChanger" 
+			nodeprecated="false" 
+			nodeprecatedlist="false" 
+			noindex="false" 
+			nonavbar="false" 
+			notree="false" 
+			overview="${srcDir}\overview.html"
+			source="1.6" 
+			sourcepath="${srcDir}" 
+			splitindex="true" 
+			use="true" 
+			version="true"
+			Windowtitle="JCaseChanger API" />
+	</target>
+
+			
+	<target name="dist" depends="compile,javadoc">
+		<jar destfile="${distDir}/JCaseChanger.jar" basedir="${buildDir}">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Main-Class" value="${mainClass}" />
+			</manifest>
+		</jar>
+	</target>
+</project>
