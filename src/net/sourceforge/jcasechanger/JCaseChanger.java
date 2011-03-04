@@ -29,7 +29,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
 /**
- * Main startup class for JCaseChanger. Toggles the case of each letter for and 
+ * Main startup class for JCaseChanger. Toggles the case of each letter of a 
  * String stored on the clipboard. The resulting String is written back to the 
  * clipboard. If anything other than a String is on the clipboard, then it 
  * remains unaltered.
