@@ -33,6 +33,7 @@
 		<property name="srcDir" location="src" />
 		<property name="buildDir" location="bin" />
 		<property name="distDir" location="dist" />
+		<property name="docDir" location="doc" />
 		<property name="apiDir" location="doc\api" />
 		<property name="encoding" value="UTF8" />
 		<property name="compilerargs" value="-Xlint" />
@@ -87,5 +88,6 @@
 				<attribute name="Main-Class" value="${mainClass}" />
 			</manifest>
 		</jar>
+		<copy file="${docDir}/Readme (Release).txt" tofile="${distDir}/Readme.txt" />
 	</target>
 </project>
