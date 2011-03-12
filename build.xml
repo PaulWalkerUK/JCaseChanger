@@ -30,7 +30,7 @@
 		<!-- Use this file if you want to overwrite any of the default properties locally-->
 		<property file="build.properties"/> 
 		
-		<property name="srcDir" location="src" />
+		<property name="srcDir" location="src\main" />
 		<property name="buildDir" location="bin" />
 		<property name="distDir" location="dist" />
 		<property name="docDir" location="doc" />
