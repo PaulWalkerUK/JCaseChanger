@@ -28,6 +28,9 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
+import net.sourceforge.jcasechanger.changer.IChanger;
+import net.sourceforge.jcasechanger.changer.ToggleCase;
+
 /**
  * Main startup class for JCaseChanger. Toggles the case of each letter of a 
  * String stored on the clipboard. The resulting String is written back to the 
@@ -60,13 +63,15 @@ public class JCaseChanger implements ClipboardOwner {
 	public JCaseChanger() {
 		String input;
 		String output;
+		IChanger changer;
 		
 		clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		changer = new ToggleCase();
 		
 		input = getInput();
 		
 		if (input != null) {
-    		output = toggleText(input);
+    		output = changer.change(input);
     		SendOutput(output);
 		}
 	}
@@ -94,31 +99,6 @@ public class JCaseChanger implements ClipboardOwner {
 			}
 		}
 		return txt;
-	}
-
-	/**
-	 * Toggles the case of every letter in a String.
-	 * 
-	 * @param input the String to be converted
-	 * @return the String after conversion
-	 */
-	private String toggleText(String input) {
-		String converted = "";
-		char chr;
-		
-		for(int i = 0; i < input.length(); i ++) {
-			chr = input.charAt(i);
-			
-			if(Character.isLowerCase(chr))
-			    converted += Character.toUpperCase(chr);
-			
-			else if(Character.isUpperCase(chr))
-			    converted += Character.toLowerCase(chr);
-			
-			else
-			    converted += chr;
-		}
-		return converted;
 	}
 
 	/**

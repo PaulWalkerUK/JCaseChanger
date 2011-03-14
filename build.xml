@@ -31,6 +31,7 @@
 		<property file="build.properties"/> 
 		
 		<property name="srcDir" location="src\main" />
+		<property name="srcTst" location="src\test" />
 		<property name="buildDir" location="bin" />
 		<property name="distDir" location="dist" />
 		<property name="docDir" location="doc" />
@@ -38,6 +39,9 @@
 		<property name="encoding" value="UTF8" />
 		<property name="compilerargs" value="-Xlint" />
 		<property name="mainClass" value="net.sourceforge.jcasechanger.JCaseChanger" />
+		<path id="classpath.test">
+		    <pathelement location="${buildDir}" />
+		</path>
 	</target>
 	
 	<target name="clean" depends="init">
@@ -51,7 +55,7 @@
 	</target>
 
 	<target name="compile" depends="clean">
-		<javac srcdir="${srcDir}" 
+		<javac srcdir="${srcDir}:${srcTst}"
 			destdir="${buildDir}" 
 			encoding="${encoding}"
 			debug="true" debuglevel="lines, vars, and source">
@@ -81,7 +85,7 @@
 	</target>
 
 			
-	<target name="dist" depends="compile,javadoc">
+	<target name="dist" depends="compile,junit,javadoc">
 		<jar destfile="${distDir}/JCaseChanger.jar" basedir="${buildDir}">
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
@@ -89,5 +93,25 @@
 			</manifest>
 		</jar>
 		<copy file="${docDir}/Readme (Release).txt" tofile="${distDir}/Readme.txt" />
+	</target>
+	
+	
+	<target name="junit" depends="compile">
+		<mkdir dir="tmp/rawtestoutput"/>
+		<junit printsummary="true" failureproperty="junit.failure">
+			<formatter type="xml"/>
+			<classpath refid="classpath.test"/>
+			<batchtest fork="no" todir="tmp/rawtestoutput">
+				<fileset dir="${srcTst}">
+			    	<include name="**/*Test*.java"/>
+			    </fileset>
+			</batchtest>
+		</junit>
+		<junitreport todir="tmp">
+	        <fileset dir="tmp/rawtestoutput"/>
+	        <report todir="test-reports"/>
+	    </junitreport>
+		<!--<delete dir="tmp" />-->
+		<fail if="junit.failure" message="Unit test(s) failed. See reports!"/>
 	</target>
 </project>
