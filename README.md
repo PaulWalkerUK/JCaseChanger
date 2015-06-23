@@ -1,5 +1,7 @@
 # JCaseChanger
 
+This project was originally started by me (PaulWalkerUK) on [Sourceforge](https://sourceforge.net/projects/jcasechanger/). I have migrated it to GitHub (as much as an experiment and practice as anything).
+
 This initial version of JCaseChanger simply takes whatever text is on the clipboard and toggles the case of each letter (lower case letters are converted to UPPER CASE and vice-versa). The result is placed back on the clipboard.
 
 When you run the program, it toggles the case on the clipboard (as described above), then exits. There is absolutely no user interface to the program.
